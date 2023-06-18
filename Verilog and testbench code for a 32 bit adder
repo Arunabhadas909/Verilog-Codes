@@ -1,0 +1,43 @@
+// Verilog Code
+
+module Adder32 (A, B, Ci, S, Co);
+input[31:0] A;
+input[31:0] B;
+input Ci;
+output[31:0] S;
+output Co;
+wire[32:0] Sum33;
+assign Sum33 = A + B + Ci ;
+assign S = Sum33[31:0] ;
+assign Co = Sum33[32] ;
+endmodule
+
+// Testbench Code 
+
+module testbench;
+  reg[31:0] A,B;
+  reg Ci;
+  wire[31:0] S;
+  wire Co;
+  integer i;
+  Adder32 ad32( A,B,Ci,S,Co);
+  
+  initial 
+    begin
+     A=35;
+     B=40;
+  end
+  initial 
+    begin
+      Ci=1'b0;
+  #10 Ci=1'b1;
+
+    end
+  initial 
+    begin
+      $monitor($time," A=%d,B=%d,Ci=%b,S=%d,Co=%b",A,B,Ci,S,Co);   
+      #100$finish;    
+    end
+endmodule
+  
+
